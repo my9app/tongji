@@ -11,8 +11,6 @@ services:
       - ./data:/data
     environment:
       - DB_PATH=/data/stats.db
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/sites"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - ADMIN_USER=${ADMIN_USER:-admin}
+      - ADMIN_PASS=${ADMIN_PASS:-admin123}
+      - SECRET_KEY=${SECRET_KEY:-}
