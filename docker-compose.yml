@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  litestats:
+    build: .
+    container_name: litestats
+    restart: always
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      - DB_PATH=/data/stats.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/sites"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
