@@ -1,6 +1,6 @@
 # 📊 LiteStats - 轻量级网站统计系统
 
-一个整合了 Umami、Plausible、Ackee 等开源项目优点的轻量级、隐私友好的网站统计系统。
+整合了 Umami、Plausible、Ackee 等开源项目优点的轻量级、隐私友好的网站统计系统。
 
 ## ✨ 特性
 
@@ -17,27 +17,15 @@
 
 ## 🚀 一键安装
 
-### 方式一：一键脚本（推荐）
-
 ```bash
-# 默认端口 8080
-bash <(curl -Ls https://raw.githubusercontent.com/yourusername/litestats/main/install.sh)
+# 先切换到 root
+sudo -i
 
-# 自定义端口
-bash <(curl -Ls https://raw.githubusercontent.com/yourusername/litestats/main/install.sh) 9000
-```
+# 一键安装（默认端口 8080）
+bash <(curl -Ls https://raw.githubusercontent.com/my9app/tongji/main/install.sh)
 
-### 方式二：手动安装
-
-```bash
-# 克隆项目
-git clone https://github.com/yourusername/litestats.git
-cd litestats
-
-# 启动服务
-docker compose up -d
-
-# 访问 http://localhost:8080
+# 自定义端口（如 9000）
+bash <(curl -Ls https://raw.githubusercontent.com/my9app/tongji/main/install.sh) 9000
 ```
 
 ## 📖 使用指南
@@ -89,22 +77,10 @@ POST /api/sites
 DELETE /api/sites/{site_id}
 ```
 
-### 数据收集
-
-```bash
-# 收集页面访问
-POST /api/collect/{token}
-{"url": "https://example.com/page", "title": "页面标题", "referrer": "https://google.com"}
-
-# 收集自定义事件
-POST /api/event/{token}
-{"name": "click", "data": {"button": "signup"}}
-```
-
 ### 统计数据
 
 ```bash
-# 获取统计数据
+# 获取统计数据（period: 24h, 7d, 30d, 90d）
 GET /api/stats/{site_id}?period=7d
 
 # 获取实时数据
@@ -119,14 +95,6 @@ GET /api/realtime/{site_id}
 |------|------|--------|
 | `DB_PATH` | 数据库路径 | `/data/stats.db` |
 | `PORT` | 服务端口 | `8080` |
-
-### 修改端口
-
-```yaml
-# docker-compose.yml
-ports:
-  - "9000:8080"  # 修改为 9000
-```
 
 ## 🔧 管理命令
 
@@ -144,16 +112,8 @@ docker stop litestats
 cp /opt/litestats/data/stats.db ~/backup/
 
 # 卸载
-docker rm -f litestats
-rm -rf /opt/litestats
+docker rm -f litestats && rm -rf /opt/litestats
 ```
-
-## 🏗️ 技术栈
-
-- **后端**: Python FastAPI
-- **数据库**: SQLite
-- **前端**: 原生 HTML/CSS/JS + Chart.js
-- **部署**: Docker
 
 ## 📊 与其他项目对比
 
@@ -170,7 +130,3 @@ rm -rf /opt/litestats
 ## 📝 许可证
 
 MIT License
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
